@@ -1,0 +1,12 @@
+* Zusammenführen von android-11.0.0_r31
+* Neu: Behalte Leerer-Bildschirm EInstellung
+* Neu: Farbauswahl für Tabs
+* Neu: Zusätzliche Dash-Steuerelemente
+* Neu: Dash-Anpassung
+* Neu: Unterstütze QuickSwitch
+* Neu: FiveSecs KLWP
+* Neu: Searx Anbieter
+* Neu: Schlafassistent
+* Neu: Vertikale App-Liste (Experimentell)
+* Fix: Dock-Größe bei langen Bildschirmen
+* Fix: Absturz beim Öffnen von Google Assistant

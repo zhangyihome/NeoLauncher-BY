@@ -1,0 +1,58 @@
+stages:
+    - build
+    - deploy
+
+variables:
+    GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
+    CHAT_ID: "omega"
+    KEYSTORE_FILE: "debug.keystore"
+    KEYSTORE_PASSWORD: "android"
+    KEY_ALIAS: "androiddebugkey"
+    KEY_PASSWORD: "android"
+
+before_script:
+    - export GRADLE_OPTS="-Dorg.gradle.daemon=false"
+    - apt-get update -qy
+    - apt-get install -y openjdk-17-jdk
+    - export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+    - chmod +x gradlew
+
+build:
+    stage: build
+    interruptible: true
+    script:
+        - ./gradlew assembleAospOmega
+    cache:    
+        paths:
+            - .gradle/caches
+            - .gradle/wrapper
+    artifacts:
+        name: "NeoLauncher.apk"
+        paths:
+            - build/outputs/apk/aospOmega/debug/
+        expire_in: 
+            1 week
+
+    before_script:
+        - echo $KEYSTORE_FILE | base64 -d > keystore.jks
+        - echo -e "storePassword=$KEYSTORE_PASSWORD\nkeyPassword=$KEY_PASSWORD\nkeyAlias=$KEY_ALIAS\nstoreFile=keystore.jks" > keystore.properties
+        - chmod +x gradlew
+        - ./gradlew signingConfig
+
+    after_script:
+        - ARTIFACT_PATHNAME_APK=$(ls build/outputs/apk/aospOmega/debug/*.apk | head -n 1)
+        - ARTIFACT_NAME_APK=$(basename ARTIFACT_PATHNAME_APK)
+        - echo "ARTIFACT_NAME_APK is ${ARTIFACT_NAME_APK}"
+        - echo "ARTIFACT_PATHNAME_APK=${ARTIFACT_PATHNAME_APK}" >> $CI_JOB_ENV
+        - echo "ARTIFACT_NAME_APK=${ARTIFACT_NAME_APK}" >> $CI_JOB_ENV
+
+deploy:
+    stage: deploy
+    needs:
+      [ build ]
+    interruptible: true
+    script:
+        - curl -s -X POST https://api.telegram.org/SECRET_BOT_TOKEN/sendMessage -d chat_id=$CHAT_ID -d text="Build finished"
+        - apt-get install curl
+        - curl -F document=@"outputs/NeoLauncher-Signed.apk" "https://api.telegram.org/bot${SECRET_BOT_TOKEN}/sendDocument?chat_id=@${CHAT_ID}"
+        - curl -s -X POST https://api.telegram.org/SECRET_BOT_TOKEN/sendMessage -d chat_id=$CHAT_ID -d text="Build finished"

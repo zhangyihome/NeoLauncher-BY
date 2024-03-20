@@ -1,0 +1,12 @@
+<ul>
+  <li>Engadido: Buscador Brave</li>
+  <li>Engadido: o xesto cara atrás</li>
+  <li>Engadido: Xesto de inicio</li>
+  <li>Engadido: modo escritorio</li>
+  <li>Correxido: a cor do texto nos widgets para o tema claro</li>
+  <li>Correxido: busca aplicacións ocultas</li>
+  <li>Correxido: icona do cartafol de portada</li>
+  <li>Restaurar o widget de espazo intelixente</li>
+  <li>Restaurar a icona do reloxo (Google)</li>
+  <li>Restablecer a icona do calendario (Google)</li>
+</ul>

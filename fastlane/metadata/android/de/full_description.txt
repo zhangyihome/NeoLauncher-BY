@@ -1,0 +1,13 @@
+Neo Launcher ist ein Fork des AOSP Launcher für Power-User.
+Er ist hochgradig konfigurierbar und bietet eine Vielzahl von Funktionen. Einige davon sind:
+
+- Das _Dash_
+- Umfangreiche Unterstützung für verschiedene Designs
+- Benutzerdefinierte Suchmaschinen
+- Unterstützung einer Gestensteuerung
+- Ein einzigartiges anpassbares Smart-Widget
+- Kategorien oder Ordner im App-Drawer
+- Unterstützung für Icon-Formen und -Pakete
+- Verstecken von Apps
+
+Es sind ständig neue Funktionen in der Pipeline, also bleib auf dem Laufenden…
